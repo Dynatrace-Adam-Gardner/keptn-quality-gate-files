@@ -10,7 +10,7 @@ The files here help to create a demo system with a 2 VM setup.
 This VM should be an Ubuntu `t3.small` with 20GB HDD space.
 
 ### VM1 Setup
-1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 20GB HDD space. Allow HTTP and SSH traffic (ports 80 and 22).
+1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 20GB HDD space. Allow HTTP and SSH traffic.
 2. SSH into the instance, then run:
 ```
 cd ~
