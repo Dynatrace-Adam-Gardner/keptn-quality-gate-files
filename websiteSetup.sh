@@ -11,9 +11,15 @@
 #  - Real user monitoring JavaScript tag management
 
 tenant=abc123.live.dynatrace.com
+api_token=***
 paas_token=***
 
 sudo apt update -y
+sudo apt install jq -y
+wget https://raw.githubusercontent.com/keptn-contrib/dynatrace-service/release-0.6.1/deploy/scripts/applyAutoTaggingRules.sh
+wget https://raw.githubusercontent.com/keptn-contrib/dynatrace-service/release-0.6.1/deploy/scripts/utils.sh
+chmod +x applyAutoTaggingRules.sh && chmod +x utils.sh
+./applyAutoTaggingRules.sh $tenant $api_token
 wget -O Dynatrace-OneAgent-Linux.sh "https://$tenant/api/v1/deployment/installer/agent/unix/default/latest?arch=x86&flavor=default" --header="Authorization: Api-Token $paas_token"
 sudo /bin/sh Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set-infra-only=false --set-host-group=website
 sudo apt install php -y
