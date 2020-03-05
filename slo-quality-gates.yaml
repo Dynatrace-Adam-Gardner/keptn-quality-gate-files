@@ -1,0 +1,20 @@
+---
+spec_version: '0.1.1'
+comparison:
+  compare_with: "single_result"
+  include_result_with_score: "pass"
+  aggregate_function: avg
+objectives:
+  - sli: response_time_p95
+    pass:             # pass if Response Time is less than 1s
+      - criteria:
+          - "<1000"
+    warning:
+      - criteria:
+          - ">=1000" # Warning if Response Time is between 1s and fail threshold.
+    fail:
+      - criteria:
+          - ">=3000" # Fail if 3s or over
+total_score:
+  pass: "90%"
+  warning: "75%"
