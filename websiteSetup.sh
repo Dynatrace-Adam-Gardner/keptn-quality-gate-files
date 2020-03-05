@@ -1,6 +1,6 @@
 # Notes
 # tenant is in the form abc123.live.dynatrace.com for SaaS
-# or {your-domain}/e/{your-environment-id}
+# or {your-domain}/e/{your-environment-id} for Managed
 #
 # API Token requires the following permissions:
 #  - Access problem and event feed, metrics and topology
