@@ -30,3 +30,4 @@ sudo service apache2 restart
 wget https://github.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/raw/master/loadGen.sh
 chmod +x loadGen.sh
 nohup ./loadGen.sh &
+
