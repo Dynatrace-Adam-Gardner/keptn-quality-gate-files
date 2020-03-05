@@ -28,6 +28,12 @@ When this file is completed, you will have:
 2. This VM will be monitored by the Dynatrace OneAgent.
 3. The setup script creates some automatic tag rules in your Dynatrace environment (`keptn_deployment`, `keptn_project`, `keptn_service` and `keptn_stage`).
 4. The setup launches a load generator which hits the website once every few seconds.
+5. In Dynatrace you'll see the apache process group with `keptn_*` tags and two services, also tagged.
+6. Notice that the service has a consistent traffic level.
+
+Navigate to the VM IP address and you'll see `v1` of the website:
+
+![website v1](assets/website_v1.png)
 
 ## VM2: Keptn Quality Gate Component
 This VM should be an Ubuntu `t3.small` with 20GB HDD space.
