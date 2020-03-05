@@ -14,6 +14,10 @@ tenant=abc123.live.dynatrace.com
 api_token=***
 paas_token=***
 
+###########################################
+# DO NOT MODIFY ANYTHING BELOW THIS LINE. #
+###########################################
+
 sudo apt update -y
 sudo apt install jq -y
 wget https://raw.githubusercontent.com/keptn-contrib/dynatrace-service/release-0.6.1/deploy/scripts/applyAutoTaggingRules.sh
