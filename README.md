@@ -1,5 +1,6 @@
 # keptn-quality-gate-files
 
+![system architecture](assets/architecture.png)
 
 Files and resources to demonstrate usage of Keptn Quality Gates in non-cloud setups.
 
