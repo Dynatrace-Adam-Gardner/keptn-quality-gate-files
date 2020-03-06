@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Notes
 # tenant is in the form abc123.live.dynatrace.com for SaaS
 # or {your-domain}/e/{your-environment-id} for Managed
