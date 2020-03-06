@@ -35,6 +35,8 @@ Navigate to the VM IP address and you'll see `v1` of the website:
 
 ![website v1](assets/website_v1.png)
 
+---
+
 ## VM2: Keptn Quality Gate Component
 This VM should be an Ubuntu `t3.small` with 20GB HDD space.
 
