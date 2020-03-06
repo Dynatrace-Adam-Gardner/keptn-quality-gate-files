@@ -84,6 +84,8 @@ wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sl
 # Tell Keptn about this file
 keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace.yaml
 
+echo ""
+echo ""
 echo "========================================================================================================="
 echo "Keptn Quality Gate is now set up and ready to execute evaluations."
 echo ""
