@@ -84,9 +84,16 @@ wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sl
 # Tell Keptn about this file
 keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace.yaml
 
-echo "Keptn Quality Gate is now setup. Ready to execute evaluations."
-echo "Run an evaluation: keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m"
+echo "========================================================================================================="
+echo "Keptn Quality Gate is now set up and ready to execute evaluations."
+echo ""
+echo "Run an evaluation:"
+echo "keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m"
 echo ""
 echo "Retrieve the keptn context ID then:"
 echo "keptn get event evaluation-done --keptn-context=***"
-echo "Note: Retrieving an evaluation can take a few minutes. Expect calls to error until the evaluation is ready."
+echo ""
+echo "Note: Retrieving an evaluation can take a few minutes."
+echo "Note: Expect calls to error until the evaluation is ready."
+echo "========================================================================================================="
+
