@@ -35,6 +35,11 @@ Navigate to the VM IP address and you'll see `v1` of the website:
 
 ![website v1](assets/website_v1.png)
 
+### Validating the Service Setup
+Navigate into your service. It **must** have these four tags associated: `keptn_deployment`, `keptn_project: website`, `keptn_service: front-end` and `keptn_stage: quality`. It must also have traffic running through the service.
+
+![service tags](assets/service_tags.png)
+
 ---
 
 ## VM2: Keptn Quality Gate Component
