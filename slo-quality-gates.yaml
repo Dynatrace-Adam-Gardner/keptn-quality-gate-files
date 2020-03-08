@@ -11,10 +11,7 @@ objectives:
           - "<1000"
     warning:
       - criteria:
-          - ">=1000" # Warning if Response Time is between 1s and fail threshold.
-    fail:
-      - criteria:
-          - ">=3000" # Fail if 3s or over
+          - "<3000" # Warning if Response Time is between 1s and 3s.
 total_score:
   pass: "90%"
   warning: "75%"
