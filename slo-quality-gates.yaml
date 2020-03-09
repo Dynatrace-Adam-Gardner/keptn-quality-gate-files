@@ -11,7 +11,7 @@ objectives:
           - "<1000"
     warning:
       - criteria:
-          - "<3000" # Warning if Response Time is between 1s and 3s.
+          - "<2800" # Warning if Response Time is between 1s and 2.8s.
 total_score:
   pass: "90%"
   warning: "75%"
