@@ -22,6 +22,7 @@ paas_token=***
 
 sudo apt update -y
 sudo apt install jq -y
+
 wget https://raw.githubusercontent.com/keptn-contrib/dynatrace-service/release-0.6.1/deploy/scripts/applyAutoTaggingRules.sh
 wget https://raw.githubusercontent.com/keptn-contrib/dynatrace-service/release-0.6.1/deploy/scripts/utils.sh
 chmod +x applyAutoTaggingRules.sh && chmod +x utils.sh
@@ -33,7 +34,10 @@ sudo wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality
 sudo rm /var/www/html/index.html
 echo export DT_CUSTOM_PROP=\"keptn_stage=quality keptn_project=website keptn_service=front-end keptn_deployment\" | sudo tee --append /etc/apache2/envvars > /dev/null
 sudo service apache2 restart
+wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/releaseV2.sh
+wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/releaseV3.sh
+chmod +x releaseV2.sh
+chmod +x releaseV3.sh
 wget https://github.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/raw/master/loadGen.sh
 chmod +x loadGen.sh
 nohup ./loadGen.sh &
-
