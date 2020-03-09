@@ -104,17 +104,48 @@ Starting to get evaluation-done event
 # JSON Content of the evaluation...
 ```
 
-## Did it Pass?
+# Did it Pass?
 The output lists everything about this test (even the SLOs used to judge the thresholds).
 But what you're probably looking for is the `data.result` value:
 ```
 {
-	"contenttype": "application/json",
-	"data": {
-		...
-		"result": "pass",
-		...
-	},
-	...
+  "contenttype": "application/json",
+  "data": {
+    ...
+    "result": "pass",
+     ...
+  },
+...
+}
+```
+
+# Release Version 2
+On the website VM, run the following command:
+```
+./releaseV2.sh
+```
+
+This will:
+* Push version 2 of the website.
+* Push a deployment event into Dynatrace.
+
+![website v2](assets/website_v2.png)
+
+Wait for at least 3 minutes then re-run the `keptn` quality gate (from the keptn VM):
+
+```
+keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m
+```
+
+After a few minutes, retrieve the result using the `keptn context` and notice that it failed:
+```
+{
+  "contenttype": "application/json",
+  "data": {
+    ...
+    "result": "fail",
+     ...
+  },
+...
 }
 ```
