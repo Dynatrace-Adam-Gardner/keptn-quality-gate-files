@@ -4,6 +4,8 @@
 
 Files and resources to demonstrate usage of Keptn Quality Gates in non-cloud setups.
 
+The intention of this tutorial is to demonstrate that Keptn Quality Gates can be used to judge software quality, even when that software does not reside on a k8s stack. Therefore this system can be used in any setup.
+
 The files here help to create a demo system with a 2 VM setup.
 
 ## VM1: Website + Load Generator
