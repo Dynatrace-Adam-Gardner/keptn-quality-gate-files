@@ -11,6 +11,8 @@ The files here help to create a demo system with a 2 VM setup.
 ## VM1: Website + Load Generator
 This VM should be an Ubuntu `t3.small` with 10GB HDD space.
 
+The username for EC2 Ubuntu instances is `ubuntu`.
+
 ### VM1 Setup
 1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 10GB HDD space. Allow HTTP and SSH traffic.
 2. SSH into the instance, then run:
