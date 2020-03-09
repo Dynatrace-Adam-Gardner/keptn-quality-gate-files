@@ -55,8 +55,8 @@ keptn create service front-end --project=website
 # Grab SLO file
 # Thresholds are:
 # Response time below 1s = pass
-# Response time between 1s & 3s = warning
-# Response time above 3s = fail
+# Response time between 1s & 2.8s = warning
+# Response time above 2.8s = fail
 wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/slo-quality-gates.yaml
 
 # Tell Keptn about this file
