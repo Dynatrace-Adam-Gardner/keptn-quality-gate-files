@@ -89,7 +89,7 @@ keptn get event evaluation-done --keptn-context=*****
 ```
 
 ### Evaluation Not Yet Completed
-When the evaluation isn't yet ready, you;ll see this:
+When the evaluation isn't yet ready, you'll see this:
 ```
 Starting to get evaluation-done event
 Get evaluation-done event was unsuccessful
