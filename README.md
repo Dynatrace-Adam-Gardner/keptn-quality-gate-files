@@ -149,3 +149,46 @@ After a few minutes, retrieve the result using the `keptn context` and notice th
 ...
 }
 ```
+The evaluation fails because the response time is higher then [the warning threshold](https://github.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/blob/6321224b2f07f29a7687d3df8f0ed06aa9a690e7/slo-quality-gates.yaml#L14)
+
+# Release Version 2
+On the website VM, run the following command:
+```
+./releaseV2.sh
+```
+
+This will:
+* Push version 2 of the website.
+* Push a deployment event into Dynatrace.
+
+![website v2](assets/website_v2.png)
+
+Wait for at least 3 minutes then re-run the `keptn` quality gate (from the keptn VM):
+
+```
+keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m
+```
+
+After a few minutes, retrieve the result using the `keptn context` and notice that it failed:
+```
+{
+  "contenttype": "application/json",
+  "data": {
+    ...
+    "result": "fail",
+     ...
+  },
+...
+}
+```
+The evaluation fails because the response time is higher then [the warning threshold](https://github.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/blob/6321224b2f07f29a7687d3df8f0ed06aa9a690e7/slo-quality-gates.yaml#L14)
+
+# Release Version 3
+This time, we will release version 3 of the website. This version has a response time of just over a second. Therefore we're expecting a `warning` result from Keptn. The response time is over the `pass` range but within the warning threshold.
+
+Release version 3 and push a deployment event to Dynatrace:
+```
+./releaseV3.sh
+```
+
+![website v3](assets/website_v3.png)
