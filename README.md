@@ -1,4 +1,4 @@
-# keptn-quality-gate-files
+# Keptn Quality Gates for Traditional Infrastructure
 
 ![system architecture](assets/architecture.png)
 
