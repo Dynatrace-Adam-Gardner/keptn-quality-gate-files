@@ -7,10 +7,10 @@ Files and resources to demonstrate usage of Keptn Quality Gates in non-cloud set
 The files here help to create a demo system with a 2 VM setup.
 
 ## VM1: Website + Load Generator
-This VM should be an Ubuntu `t3.small` with 20GB HDD space.
+This VM should be an Ubuntu `t3.small` with 10GB HDD space.
 
 ### VM1 Setup
-1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 20GB HDD space. Allow HTTP and SSH traffic.
+1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 10GB HDD space. Allow HTTP and SSH traffic.
 2. SSH into the instance, then run:
 ```
 cd ~
@@ -43,10 +43,10 @@ Navigate into your service. It **must** have these four tags associated: `keptn_
 ---
 
 ## VM2: Keptn Quality Gate Component
-This VM should be an Ubuntu `t3.small` with 20GB HDD space.
+This VM should be an Ubuntu `t3.small` with 10GB HDD space.
 
 ### VM2 Setup
-1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 20GB HDD space. Allow HTTP and SSH traffic.
+1. Launch an `Ubuntu Server 18.04` instance in EC2. Give it 10GB HDD space. Allow HTTP and SSH traffic.
 2. SSH into the instance, then run:
 ```
 cd ~
