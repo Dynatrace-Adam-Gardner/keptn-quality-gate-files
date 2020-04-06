@@ -29,11 +29,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 chmod +x minikube
 sudo mv minikube /usr/local/bin/minikube
 wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/creds.json
-wget https://storage.googleapis.com/keptn-cli/latest/keptn-linux.tar.gz
-tar xzf keptn-linux.tar.gz
-rm keptn-linux.tar.gz
-chmod +x keptn
-sudo mv keptn /usr/local/bin/keptn
+curl -sL https://get.keptn.sh | sudo -E bash
 sudo minikube start --vm-driver=none
 sudo chmod +rwx -R /home/$USER/.kube/
 sudo chmod +rwx -R /home/$USER/.minikube/
