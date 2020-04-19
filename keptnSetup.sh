@@ -41,7 +41,10 @@ keptn install --platform=kubernetes --use-case=quality-gates --gateway=NodePort 
 #     ONBOARD PROJECT TO KEPTN      #
 #####################################
 # Grab shipyard quality gate file with single "quality" stage.
-wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/shipyard.yaml
+cat > shipyard.yaml <<DELIM
+stages:
+  - "quality"
+DELIM
 
 # Create a keptn project called 'website' containing one stage 'quality' as defined in the shipyard.yaml
 keptn create project website --shipyard=shipyard.yaml
