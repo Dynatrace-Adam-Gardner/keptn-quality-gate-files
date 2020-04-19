@@ -25,9 +25,10 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s http
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/kubectl
 sudo apt-get install docker.io -y
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.2.0/minikube-linux-amd64
 chmod +x minikube
-sudo mv minikube /usr/local/bin/minikube
+sudo cp minikube /usr/local/bin/
+rm minikube
 echo '{ "clusterName": "minikube" }' | tee creds.json > /dev/null
 curl -sL https://get.keptn.sh | sudo -E bash
 sudo minikube start --vm-driver=none
