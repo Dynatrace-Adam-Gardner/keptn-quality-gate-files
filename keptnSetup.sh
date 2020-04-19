@@ -28,7 +28,7 @@ sudo apt-get install docker.io -y
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 chmod +x minikube
 sudo mv minikube /usr/local/bin/minikube
-wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/creds.json
+echo '{ "clusterName": "minikube" }' | tee creds.json > /dev/null
 curl -sL https://get.keptn.sh | sudo -E bash
 sudo minikube start --vm-driver=none
 sudo chmod +rwx -R /home/$USER/.kube/
