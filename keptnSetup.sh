@@ -43,7 +43,7 @@ keptn install --platform=kubernetes --use-case=quality-gates --gateway=NodePort 
 # Grab shipyard quality gate file with single "quality" stage.
 cat > shipyard.yaml <<DELIM
 stages:
-  - "quality"
+  - name: "quality"
 DELIM
 
 # Create a keptn project called 'website' containing one stage 'quality' as defined in the shipyard.yaml
