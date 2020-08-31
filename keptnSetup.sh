@@ -20,22 +20,23 @@ api_token=***
 ###########################################
 
 cd /home/$USER
-sudo apt-get update -y
-curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/kubectl
-sudo apt-get install docker.io -y
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.2.0/minikube-linux-amd64
-chmod +x minikube
-sudo cp minikube /usr/local/bin/
-rm minikube
-echo '{ "clusterName": "minikube" }' | tee creds.json > /dev/null
+
+# Install k3s
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.18.3+k3s1 K3S_KUBECONFIG_MODE="644" sh -s - --no-deploy=traefik
+cp /etc/rancher/k3s/k3s.yaml /home/$USER/.kube/config
+
+# Install keptn CLI
 curl -sL https://get.keptn.sh | sudo -E bash
-sudo minikube start --vm-driver=none
-sudo chmod +rwx -R /home/$USER/.kube/
-sudo chmod +rwx -R /home/$USER/.minikube/
-sleep 30 # Wait for minikube to start
-keptn install --platform=kubernetes --use-case=quality-gates --gateway=NodePort --creds=creds.json --verbose
+echo '{ "clusterName": "default" }' | tee creds.json > /dev/null
+
+# Install keptn
+keptn install --creds creds.json
+
+# Configure keptn port forwarding (in background)
+kubectl -n keptn port-forward service/api-gateway-nginx 8080:80 &
+
+# Authorise keptn CLI
+keptn auth --endpoint=http://localhost:8080 --api-token=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
 
 #####################################
 #     ONBOARD PROJECT TO KEPTN      #
@@ -64,7 +65,7 @@ keptn add-resource --project=website --stage=quality --service=front-end --resou
 
 # Install the Dynatrace SLI provider
 # This is the 'logic'. This tells keptn "how" to pull Dynatrace metrics
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.3.0/deploy/service.yaml
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.5.0/deploy/service.yaml
 
 # Create Dynatrace secret to hold tenant & API key details
 # keptn uses these details to pull metrics from our tenant.
