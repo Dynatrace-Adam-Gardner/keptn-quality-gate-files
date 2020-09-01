@@ -20,22 +20,23 @@ api_token=***
 ###########################################
 
 cd /home/$USER
-sudo apt-get update -y
-curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/kubectl
-sudo apt-get install docker.io -y
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.2.0/minikube-linux-amd64
-chmod +x minikube
-sudo cp minikube /usr/local/bin/
-rm minikube
-echo '{ "clusterName": "minikube" }' | tee creds.json > /dev/null
+sudo apt update
+
+# Install k3s
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.18.3+k3s1 K3S_KUBECONFIG_MODE="644" sh -s - --no-deploy=traefik
+# Get nodes. This creates the /home/$USER/.kube directory so its necessary
+kubectl get nodes
+cp /etc/rancher/k3s/k3s.yaml /home/$USER/.kube/config
+
+# Install keptn CLI
 curl -sL https://get.keptn.sh | sudo -E bash
-sudo minikube start --vm-driver=none
-sudo chmod +rwx -R /home/$USER/.kube/
-sudo chmod +rwx -R /home/$USER/.minikube/
-sleep 30 # Wait for minikube to start
-keptn install --platform=kubernetes --use-case=quality-gates --gateway=NodePort --creds=creds.json --verbose
+echo '{ "clusterName": "default" }' | tee creds.json > /dev/null
+
+# Install keptn & exposes on port 80
+keptn install --endpoint-service-type=LoadBalancer --creds creds.json
+
+# Authorise keptn CLI
+keptn auth --endpoint=http://localhost --api-token=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
 
 #####################################
 #     ONBOARD PROJECT TO KEPTN      #
@@ -52,6 +53,10 @@ keptn create project website --shipyard=shipyard.yaml
 # Create a keptn service called 'front-end' in the 'website' project
 keptn create service front-end --project=website
 
+# Install the Dynatrace SLI provider
+# This is the 'logic'. This tells keptn "how" to pull Dynatrace metrics
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.5.0/deploy/service.yaml
+
 # Grab SLO file
 # Thresholds are:
 # Response time below 1s = pass
@@ -61,10 +66,6 @@ wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate
 
 # Tell Keptn about this file
 keptn add-resource --project=website --stage=quality --service=front-end --resource=slo-quality-gates.yaml --resourceUri=slo.yaml
-
-# Install the Dynatrace SLI provider
-# This is the 'logic'. This tells keptn "how" to pull Dynatrace metrics
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.3.0/deploy/service.yaml
 
 # Create Dynatrace secret to hold tenant & API key details
 # keptn uses these details to pull metrics from our tenant.
@@ -79,15 +80,24 @@ kubectl apply -f https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-
 # See the 'response_time_p95' in the 'slo-quality-gates.yaml' file? The file below contains the actual implementation of what that "variable" means.
 # The implementation is actually using the Dynatrace API v2 syntax to pull timeseries metrics.
 # It's also filtering by the auto-tag rules on our services... Which now explains why they're necessary.
-wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sli-config-dynatrace.yaml
+wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sli-config-dynatrace-no-deployment-tag.yaml
 
 # Tell Keptn about this file
-keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace.yaml
+keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace-no-deployment-tag.yaml --resourceUri=dynatrace/sli.yaml
 
 echo ""
 echo ""
 echo "========================================================================================================="
 echo "Keptn Quality Gate is now set up and ready to execute evaluations."
+echo ""
+echo "Keptn Exposed on Port 80"
+echo "API URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/api"
+echo "API Token: $(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)"
+echo ""
+echo "Bridge URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/bridge"
+echo "Bridge Credentials:"
+echo "$(keptn configure bridge --output)"
+echo ""
 echo ""
 echo "Run an evaluation:"
 echo "keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m"
@@ -96,6 +106,6 @@ echo "Retrieve the keptn context ID then:"
 echo "keptn get event evaluation-done --keptn-context=***"
 echo ""
 echo "Note: Retrieving an evaluation can take a few minutes."
-echo "Note: Expect calls to error until the evaluation is ready."
+echo "Note: Expect calls to report "No event returned" until the evaluation is ready."
 echo "========================================================================================================="
 
