@@ -32,11 +32,8 @@ cp /etc/rancher/k3s/k3s.yaml /home/$USER/.kube/config
 curl -sL https://get.keptn.sh | sudo -E bash
 echo '{ "clusterName": "default" }' | tee creds.json > /dev/null
 
-# Install keptn
-keptn install --creds creds.json
-
-# Configure keptn port forwarding (in background)
-kubectl -n keptn port-forward service/api-gateway-nginx 8080:80 &
+# Install keptn & exposes on port 80
+keptn install --endpoint-service-type=LoadBalancer --creds creds.json
 
 # Authorise keptn CLI
 keptn auth --endpoint=http://localhost:8080 --api-token=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
@@ -92,6 +89,15 @@ echo ""
 echo ""
 echo "========================================================================================================="
 echo "Keptn Quality Gate is now set up and ready to execute evaluations."
+echo ""
+echo "Keptn Exposed on Port 80"
+echo "API URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/bridge"
+echo "API Token: $(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)"
+echo ""
+echo "Bridge URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/bridge"
+echo "Bridge Credentials:"
+echo "$(keptn configure bridge --output)"
+echo ""
 echo ""
 echo "Run an evaluation:"
 echo "keptn send event start-evaluation --project=website --stage=quality --service=front-end --timeframe=2m"
