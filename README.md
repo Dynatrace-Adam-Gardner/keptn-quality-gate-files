@@ -116,6 +116,8 @@ Starting to get evaluation-done event
 # JSON Content of the evaluation...
 ```
 
+![system architecture](assets/bridge_results.png)
+
 # Did Version 1 Pass?
 The output lists everything about this test (even the SLOs used to judge the thresholds).
 But what you're probably looking for is the `data.result` value:
