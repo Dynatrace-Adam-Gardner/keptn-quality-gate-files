@@ -65,12 +65,20 @@ chmod +x keptnSetup.sh
 ```
 
 When this file is completed, you'll have:
-1. A VM running a single node Kubernetes cluster using minikube.
+1. A VM running a single node Kubernetes cluster using [k3s](https://k3s.io/).
 2. Keptn installed on the k8s cluster running the `quality gate` use case.
 3. A project called `website` configured in keptn with a single stage called `quality`.
 4. Keptn has the Dynatrace SLI provider installed.
 5. Keptn is configured to use Dynatrace SLI provider on the `website` project.
 6. Keptn is configured to evaluate the service based on thresholds provided in the SLO file.
+7. The Keptn API and Bridge is available at `http://<VM-IP>/bridge` and `http://<VM-IP>/api`
+
+The API Token and Bridge Credentials can be found at the end of the shell script output or by these commands:
+
+```
+API Token: kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode
+Bridge Credentials: keptn configure bridge --output
+```
 
 # Evaluating Services with Keptn
 Evaluating your service is easy, just run the following command.
@@ -97,8 +105,7 @@ keptn get event evaluation-done --keptn-context=*****
 When the evaluation isn't yet ready, you'll see this:
 ```
 Starting to get evaluation-done event
-Get evaluation-done event was unsuccessful
-Error: No Keptn sh.keptn.events.evaluation-done event found for context: *****
+No event returned
 ```
 
 ### Evaluation Completed
