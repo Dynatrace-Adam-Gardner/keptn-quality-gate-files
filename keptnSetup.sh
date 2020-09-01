@@ -83,7 +83,7 @@ kubectl apply -f https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-
 wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sli-config-dynatrace-no-deployment-tag.yaml
 
 # Tell Keptn about this file
-keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace-no-deployment-tag.yaml --resourceUri=sli.yaml
+keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace-no-deployment-tag.yaml --resourceUri=dynatrace/sli.yaml
 
 echo ""
 echo ""
