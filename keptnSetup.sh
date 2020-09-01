@@ -91,7 +91,7 @@ echo "==========================================================================
 echo "Keptn Quality Gate is now set up and ready to execute evaluations."
 echo ""
 echo "Keptn Exposed on Port 80"
-echo "API URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/bridge"
+echo "API URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/api"
 echo "API Token: $(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)"
 echo ""
 echo "Bridge URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/bridge"
