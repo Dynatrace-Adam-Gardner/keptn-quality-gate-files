@@ -23,9 +23,8 @@ cd /home/$USER
 
 # Install k3s
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.18.3+k3s1 K3S_KUBECONFIG_MODE="644" sh -s - --no-deploy=traefik
-ls /etc/rancher/k3s
-ls /home/$USER/.kube
-touch /home/$USER/.kube/config
+# Get nodes. This creates the /home/$USER/.kube directory so its necessary
+kubectl get nodes
 cp /etc/rancher/k3s/k3s.yaml /home/$USER/.kube/config
 
 # Install keptn CLI
