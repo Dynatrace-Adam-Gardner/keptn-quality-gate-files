@@ -32,7 +32,7 @@ sudo /bin/sh Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set
 sudo apt install php -y
 sudo wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/indexV1.php -O /var/www/html/index.php
 sudo rm /var/www/html/index.html
-echo export DT_CUSTOM_PROP=\"keptn_stage=quality keptn_project=website keptn_service=front-end keptn_deployment\" | sudo tee --append /etc/apache2/envvars > /dev/null
+echo export DT_CUSTOM_PROP=\"keptn_stage=quality keptn_project=website keptn_service=front-end\" | sudo tee --append /etc/apache2/envvars > /dev/null
 sudo service apache2 restart
 wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/releaseV2.sh
 wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate-files/master/releaseV3.sh
