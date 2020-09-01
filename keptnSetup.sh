@@ -56,6 +56,10 @@ keptn create project website --shipyard=shipyard.yaml
 # Create a keptn service called 'front-end' in the 'website' project
 keptn create service front-end --project=website
 
+# Install the Dynatrace SLI provider
+# This is the 'logic'. This tells keptn "how" to pull Dynatrace metrics
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.5.0/deploy/service.yaml
+
 # Grab SLO file
 # Thresholds are:
 # Response time below 1s = pass
@@ -65,10 +69,6 @@ wget https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-quality-gate
 
 # Tell Keptn about this file
 keptn add-resource --project=website --stage=quality --service=front-end --resource=slo-quality-gates.yaml --resourceUri=slo.yaml
-
-# Install the Dynatrace SLI provider
-# This is the 'logic'. This tells keptn "how" to pull Dynatrace metrics
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/dynatrace-sli-service/0.5.0/deploy/service.yaml
 
 # Create Dynatrace secret to hold tenant & API key details
 # keptn uses these details to pull metrics from our tenant.
@@ -83,10 +83,10 @@ kubectl apply -f https://raw.githubusercontent.com/Dynatrace-Adam-Gardner/keptn-
 # See the 'response_time_p95' in the 'slo-quality-gates.yaml' file? The file below contains the actual implementation of what that "variable" means.
 # The implementation is actually using the Dynatrace API v2 syntax to pull timeseries metrics.
 # It's also filtering by the auto-tag rules on our services... Which now explains why they're necessary.
-wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sli-config-dynatrace.yaml
+wget https://raw.githubusercontent.com/keptn/examples/master/onboarding-carts/sli-config-dynatrace-no-deployment-tag.yaml
 
 # Tell Keptn about this file
-keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace.yaml
+keptn add-resource --project=website --stage=quality --service=front-end --resource=sli-config-dynatrace-no-deployment-tag.yaml --resourceUri=sli.yaml
 
 echo ""
 echo ""
