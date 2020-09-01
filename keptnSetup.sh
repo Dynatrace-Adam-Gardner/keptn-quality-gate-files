@@ -106,6 +106,6 @@ echo "Retrieve the keptn context ID then:"
 echo "keptn get event evaluation-done --keptn-context=***"
 echo ""
 echo "Note: Retrieving an evaluation can take a few minutes."
-echo "Note: Expect calls to error until the evaluation is ready."
+echo "Note: Expect calls to report "No event returned" until the evaluation is ready."
 echo "========================================================================================================="
 
