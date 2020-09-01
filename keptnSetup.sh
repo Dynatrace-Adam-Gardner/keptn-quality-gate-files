@@ -20,6 +20,7 @@ api_token=***
 ###########################################
 
 cd /home/$USER
+sudo apt update
 
 # Install k3s
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.18.3+k3s1 K3S_KUBECONFIG_MODE="644" sh -s - --no-deploy=traefik
