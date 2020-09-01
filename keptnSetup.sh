@@ -36,7 +36,7 @@ echo '{ "clusterName": "default" }' | tee creds.json > /dev/null
 keptn install --endpoint-service-type=LoadBalancer --creds creds.json
 
 # Authorise keptn CLI
-keptn auth --endpoint=http://localhost:8080 --api-token=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
+keptn auth --endpoint=http://localhost --api-token=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
 
 #####################################
 #     ONBOARD PROJECT TO KEPTN      #
