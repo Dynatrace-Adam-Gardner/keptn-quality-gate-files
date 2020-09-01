@@ -9,7 +9,7 @@ The intention of this tutorial is to demonstrate that Keptn Quality Gates can be
 The files here help to create a demo system with a 2 VM setup.
 
 ## VM1: Website + Load Generator
-This VM should be an Ubuntu `t3.small` with 10GB HDD space.
+This VM should be an Ubuntu 18.04 `t3.small` with 10GB HDD space.
 
 The username for EC2 Ubuntu instances is `ubuntu`.
 
@@ -33,14 +33,15 @@ When this file is completed, you will have:
 3. The setup script creates some automatic tag rules in your Dynatrace environment (`keptn_deployment`, `keptn_project`, `keptn_service` and `keptn_stage`).
 4. The setup launches a load generator which hits the website once every few seconds.
 5. In Dynatrace you'll see the apache process group with `keptn_*` tags and two services, also tagged.
-6. Notice that the service has a consistent traffic level.
+6. The service has a consistent traffic level.
+7. Keptn will be exposed on port `80` at `http://<VM-IP>/api` and `http://<VM-IP>/bridge`
 
 Navigate to the VM IP address and you'll see `v1` of the website:
 
 ![website v1](assets/website_v1.png)
 
 ### Validating the Service Setup
-Navigate into your service. It **must** have these four tags associated: `keptn_deployment`, `keptn_project: website`, `keptn_service: front-end` and `keptn_stage: quality`. It must also have traffic running through the service.
+Navigate into your service. It **must** have these three tags associated: `keptn_project: website`, `keptn_service: front-end` and `keptn_stage: quality`. It must also have traffic running through the service.
 
 ![service tags](assets/service_tags.png)
 
